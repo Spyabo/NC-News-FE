@@ -12,8 +12,8 @@ export default function Header({
   date: string;
 }) {
   return (
-    <div>
-      <div
+    <section>
+      <header
         style={{
           display: "flex",
           flexDirection: "row",
@@ -22,11 +22,11 @@ export default function Header({
       >
         <h5>{`Posted by: ${author}`}</h5>
         <h5>{dateformat(date, "longDate")}</h5>
-      </div>
+      </header>
       <h1>{title}</h1>
-      <div>
+      <article>
         <p>{`Topic: ${topic}`}</p>
-      </div>
-    </div>
+      </article>
+    </section>
   );
 }
