@@ -12,6 +12,13 @@
   width: 100%;
 }
 
+.FullArticle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .Burger-Menu {
   height: 1em;
 }
