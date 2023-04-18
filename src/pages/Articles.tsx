@@ -1,9 +1,26 @@
-const Articles = () => {
+import { useQuery } from "@tanstack/react-query";
+import PacmanLoader from "react-spinners/PacmanLoader";
+import { Article, getArticles } from "../api";
+import ArticleListItem from "../components/ArticleListItem";
+
+export default function Articles() {
+  const {
+    isLoading,
+    error,
+    data: articles,
+  } = useQuery<Article[], Error>({
+    queryKey: ["articlesData"],
+    queryFn: getArticles,
+  });
+
+  if (isLoading) return <PacmanLoader color="#36d7b7" />;
+  if (error) return <div>{error.message}</div>;
+
   return (
     <div>
-      <h1>Articles</h1>
+      {articles.map((article) => (
+        <ArticleListItem key={article.article_id} article={article} />
+      ))}
     </div>
   );
-};
-
-export default Articles;
+}
