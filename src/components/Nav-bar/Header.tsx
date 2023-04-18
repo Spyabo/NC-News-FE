@@ -83,7 +83,7 @@ export default function MenuAppBar() {
                 onClick={handleMenu}
                 color="inherit"
               >
-                {ProfilePic("weegembump")}
+                {<ProfilePic username={"weegembump"} />}
               </IconButton>
               <Menu
                 id="menu-appbar"

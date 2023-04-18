@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { User, getUser } from "../api";
 
-export default function ProfilePic(username: string) {
+export default function ProfilePic({ username }: { username: string }) {
   const {
     isLoading,
     error,
