@@ -23,6 +23,13 @@ export async function getArticles() {
   return articles;
 }
 
+export async function getArticle(articleId: string) {
+  const {
+    data: { article },
+  } = await api.get<{ article: Article }>(`/articles/${articleId}`);
+  return article;
+}
+
 export type User = {
   username: string;
   name: string;
