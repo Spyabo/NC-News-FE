@@ -12,6 +12,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import Burger_menu from "../../assets/burger-menu.svg";
 import Button from "../LinkButton";
+import ProfilePic from "../ProfilePic";
 
 export default function MenuAppBar() {
   const [auth, setAuth] = React.useState(true);
@@ -82,7 +83,7 @@ export default function MenuAppBar() {
                 onClick={handleMenu}
                 color="inherit"
               >
-                {/* {Avatar} */}
+                {ProfilePic("weegembump")}
               </IconButton>
               <Menu
                 id="menu-appbar"
