@@ -16,11 +16,11 @@ export default function Comments() {
 
   if (error) return <div>{error.message}</div>;
 
-  const handleUpvote = (commentId: string) => {
+  const handleUpvote = (commentId: number) => {
     // TODO: Implement upvote logic
   };
 
-  const handleDownvote = (commentId: string) => {
+  const handleDownvote = (commentId: number) => {
     // TODO: Implement downvote logic
   };
 
