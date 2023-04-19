@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import PacmanLoader from "react-spinners/PacmanLoader";
 import { Article, getArticle } from "../api";
+import Comments from "../components/FullArticle/Comments";
 import Header from "../components/FullArticle/Header";
 
 export default function FullArticle() {
@@ -28,6 +29,7 @@ export default function FullArticle() {
       />
       <img src={article.article_img_url} alt="Cover Image" />
       <p>{article.body}</p>
+      <Comments />
     </div>
   );
 }
