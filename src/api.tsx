@@ -30,6 +30,22 @@ export async function getArticle(articleId: string) {
   return article;
 }
 
+export type Comment = {
+  comment_id: number;
+  created_at: string;
+  body: string;
+  votes: number;
+  author: User["name"];
+  article_id: string;
+};
+
+export async function getArticleComments(articleId: string) {
+  const {
+    data: { comments },
+  } = await api.get<{ comments: Comment[] }>(`/articles/${articleId}/comments`);
+  return comments;
+}
+
 export type User = {
   username: string;
   name: string;
