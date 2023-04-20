@@ -41,7 +41,7 @@ export default function PostComment() {
   return (
     <Box
       component="form"
-      sx={{ display: "flex", alignItems: "flex-end" }}
+      sx={{ display: "flex", alignItems: "flex-end", marginBottom: "10px" }}
       noValidate
       autoComplete="off"
       onSubmit={handleSubmit}
