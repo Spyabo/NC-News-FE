@@ -13,7 +13,10 @@ export default function ArticleListItem({ article }: { article: Article }) {
   };
 
   return (
-    <Link to={`/articles/${article.article_id}`} state={article.votes}>
+    <Link
+      to={`/articles/${article.article_id}`}
+      state={article.votes === 0 ? "0" : article.votes}
+    >
       <div
         style={{
           position: "relative",
