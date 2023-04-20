@@ -16,6 +16,14 @@ export default function Comments() {
 
   if (error) return <div>{error.message}</div>;
 
+  const handleUpvote = (commentId: number) => {
+    // TODO: Implement upvote logic
+  };
+
+  const handleDownvote = (commentId: number) => {
+    // TODO: Implement downvote logic
+  };
+
   return (
     <div>
       {comments?.map((comment) => (
@@ -31,6 +39,41 @@ export default function Comments() {
         >
           <div style={{ fontWeight: "bold" }}>Author: {comment.author}</div>
           <div>{comment.body}</div>
+          <div style={{ position: "absolute", bottom: "5px", right: "5px" }}>
+            <div style={{ float: "right" }}>
+              <button
+                style={{
+                  margin: "5px",
+                  fontSize: "12px",
+                  padding: "3px",
+                  width: "20px",
+                }}
+                onClick={() => handleUpvote(comment.comment_id)}
+              >
+                {" + "}
+              </button>
+              <button
+                style={{
+                  fontSize: "12px",
+                  padding: "3px",
+                  width: "20px",
+                }}
+                onClick={() => handleDownvote(comment.comment_id)}
+              >
+                {"  -  "}
+              </button>
+            </div>
+            <div
+              style={{
+                fontSize: "14px",
+                color: "grey",
+                marginTop: "5px",
+                float: "right",
+              }}
+            >
+              Votes: {comment.votes}
+            </div>
+          </div>
           <div
             style={{
               position: "absolute",
@@ -40,7 +83,7 @@ export default function Comments() {
               color: "grey",
             }}
           >
-            {dateformat(comment.created_at, "longDate")}
+            {dateformat(comment.created_at, "default")}
           </div>
         </div>
       ))}
