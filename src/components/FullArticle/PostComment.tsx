@@ -7,6 +7,7 @@ import ProfilePic from "../ProfilePic";
 
 export default function PostComment() {
   const [comment, setComment] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const { article_ID } = useParams();
   const queryClient = useQueryClient();
 
@@ -37,6 +38,7 @@ export default function PostComment() {
       }
     );
     setComment("");
+    setIsSubmitted(true);
   };
 
   return (
@@ -68,6 +70,19 @@ export default function PostComment() {
         variant="outlined"
         focused={true}
       />
+      {isSubmitted && (
+        <div
+          style={{
+            backgroundColor: "#4CAF50",
+            color: "white",
+            padding: "3px 5px",
+            borderRadius: "4px",
+            textAlign: "center",
+          }}
+        >
+          Comment posted!
+        </div>
+      )}{" "}
     </Box>
   );
 }
