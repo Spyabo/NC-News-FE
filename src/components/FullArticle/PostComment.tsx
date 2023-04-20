@@ -1,5 +1,5 @@
 import { Box, InputAdornment, TextField } from "@mui/material";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Comment, postComment } from "../../api";
@@ -48,7 +48,7 @@ export default function PostComment() {
       onSubmit={handleSubmit}
     >
       <TextField
-        id="outlined-controlled"
+        id="filled-controlled"
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
@@ -60,9 +60,13 @@ export default function PostComment() {
           setComment(event.target.value);
         }}
         value={comment}
-        color="primary"
         fullWidth
-        sx={{ input: { color: "white", opacity: "80%" } }}
+        sx={{
+          input: { color: "white", opacity: "80%" },
+          color: "white",
+        }}
+        variant="outlined"
+        focused={true}
       />
     </Box>
   );
