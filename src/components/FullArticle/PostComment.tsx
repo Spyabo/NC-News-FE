@@ -1,23 +1,41 @@
 import { Box, InputAdornment, TextField } from "@mui/material";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { postComment } from "../../api";
+import { Comment, postComment } from "../../api";
 import ProfilePic from "../ProfilePic";
 
 export default function PostComment() {
   const [comment, setComment] = useState("");
   const { article_ID } = useParams();
+  const queryClient = useQueryClient();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    postComment({
+    const newComment: Partial<Comment> = {
       article_id: article_ID as string,
       username: "weegembump",
       body: comment,
       created_at: new Date().toISOString(),
-    });
+    };
+    postComment(newComment);
+    queryClient.setQueryData<Comment[] | undefined>(
+      ["Article_Comments"],
+      (data) => {
+        if (data) {
+          const newComment: Comment = {
+            article_id: article_ID as string,
+            author: "weegembump",
+            body: comment,
+            created_at: new Date().toISOString(),
+            comment_id: data.length + 1,
+            votes: 0,
+          };
+          return [newComment, ...data];
+        }
+      }
+    );
     setComment("");
-    console.log("Form submitted!");
   };
 
   return (
