@@ -13,7 +13,18 @@ export default function Articles() {
     queryFn: getArticles,
   });
 
-  if (isLoading) return <PacmanLoader color="#36d7b7" />;
+  if (isLoading)
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <PacmanLoader color="#36d7b7" />
+      </div>
+    );
   if (error) return <div>{error.message}</div>;
 
   return (
