@@ -12,6 +12,7 @@ export default function PostComment() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!comment) return;
     const newComment: Partial<Comment> = {
       article_id: article_ID as string,
       username: "weegembump",
