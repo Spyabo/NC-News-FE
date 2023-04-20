@@ -35,7 +35,8 @@ export type Comment = {
   created_at: string;
   body: string;
   votes: number;
-  author: User["name"];
+  author?: User["name"];
+  username?: User["name"];
   article_id: string;
 };
 
