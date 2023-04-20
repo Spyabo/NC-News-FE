@@ -46,6 +46,16 @@ export async function getArticleComments(articleId: string) {
   return comments;
 }
 
+export async function postComment(requestComment: Partial<Comment>) {
+  const {
+    data: { comment },
+  } = await api.post<{ comment: Comment }>(
+    `/articles/${requestComment.article_id}/comments`,
+    requestComment
+  );
+  return comment;
+}
+
 export type User = {
   username: string;
   name: string;
