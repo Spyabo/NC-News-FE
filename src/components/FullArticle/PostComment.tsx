@@ -1,6 +1,6 @@
 import { Box, InputAdornment, TextField } from "@mui/material";
 import { useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Comment, postComment } from "../../api";
 import ProfilePic from "../ProfilePic";
@@ -8,11 +8,16 @@ import ProfilePic from "../ProfilePic";
 export default function PostComment() {
   const [comment, setComment] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isOffline, setIsOffline] = useState(false);
   const { article_ID } = useParams();
   const queryClient = useQueryClient();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!navigator.onLine) {
+      setIsOffline(true);
+      return;
+    }
     if (!comment) return;
     const newComment: Partial<Comment> = {
       article_id: article_ID as string,
@@ -40,6 +45,17 @@ export default function PostComment() {
     setComment("");
     setIsSubmitted(true);
   };
+
+  useEffect(() => {
+    const handleOffline = () => setIsOffline(true);
+    const handleOnline = () => setIsOffline(false);
+    window.addEventListener("offline", handleOffline);
+    window.addEventListener("online", handleOnline);
+    return () => {
+      window.removeEventListener("offline", handleOffline);
+      window.removeEventListener("online", handleOnline);
+    };
+  }, []);
 
   return (
     <Box
@@ -82,7 +98,20 @@ export default function PostComment() {
         >
           Comment posted!
         </div>
-      )}{" "}
+      )}
+      {isOffline && (
+        <div
+          style={{
+            backgroundColor: "#f44336",
+            color: "white",
+            padding: "3px 5px",
+            borderRadius: "4px",
+            textAlign: "center",
+          }}
+        >
+          Error: You are offline
+        </div>
+      )}
     </Box>
   );
 }
