@@ -23,11 +23,11 @@ export default function FullArticle() {
   });
 
   const handleUpvote = () => {
-    setVotes(votes + 1);
+    setVotes(parseInt(votes) + 1);
   };
 
   const handleDownvote = () => {
-    setVotes(votes - 1);
+    setVotes(parseInt(votes) - 1);
   };
 
   useEffect(() => {
@@ -35,10 +35,8 @@ export default function FullArticle() {
       patchArticleVotes(article_ID as string, votes);
     };
 
-    window.addEventListener("beforeunload", handleLeavePage);
-
     return () => {
-      window.removeEventListener("beforeunload", handleLeavePage);
+      handleLeavePage();
     };
   }, []);
 
