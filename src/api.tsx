@@ -35,7 +35,8 @@ export type Comment = {
   created_at: string;
   body: string;
   votes: number;
-  author: User["name"];
+  author?: User["name"];
+  username?: User["name"];
   article_id: string;
 };
 
@@ -44,6 +45,16 @@ export async function getArticleComments(articleId: string) {
     data: { comments },
   } = await api.get<{ comments: Comment[] }>(`/articles/${articleId}/comments`);
   return comments;
+}
+
+export async function postComment(requestComment: Partial<Comment>) {
+  const {
+    data: { comment },
+  } = await api.post<{ comment: Comment }>(
+    `/articles/${requestComment.article_id}/comments`,
+    requestComment
+  );
+  return comment;
 }
 
 export type User = {

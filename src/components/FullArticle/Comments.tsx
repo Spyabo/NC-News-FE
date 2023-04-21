@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import dateformat from "dateformat";
 import { useParams } from "react-router-dom";
 import { Comment, getArticleComments } from "../../api";
+import PostComment from "./PostComment";
 
 export default function Comments() {
   const { article_ID } = useParams();
@@ -25,7 +26,8 @@ export default function Comments() {
   };
 
   return (
-    <div>
+    <div style={{ width: "100%" }}>
+      <PostComment />
       {comments?.map((comment) => (
         <div
           key={comment.comment_id}
