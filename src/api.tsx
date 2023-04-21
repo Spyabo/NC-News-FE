@@ -30,6 +30,15 @@ export async function getArticle(articleId: string) {
   return article;
 }
 
+export async function patchArticleVotes(articleId: string, votes: number) {
+  const {
+    data: { article },
+  } = await api.patch<{ article: Article }>(`/articles/${articleId}`, {
+    inc_votes: votes,
+  });
+  return article;
+}
+
 export type Comment = {
   comment_id: number;
   created_at: string;

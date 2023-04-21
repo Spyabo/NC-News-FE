@@ -13,7 +13,10 @@ export default function ArticleListItem({ article }: { article: Article }) {
   };
 
   return (
-    <Link to={`/articles/${article.article_id}`}>
+    <Link
+      to={`/articles/${article.article_id}`}
+      state={article.votes === 0 ? "0" : article.votes}
+    >
       <div
         style={{
           position: "relative",
@@ -29,6 +32,7 @@ export default function ArticleListItem({ article }: { article: Article }) {
         <h3>{article.title}</h3>
         <p>{`Topic: ${article.topic}`}</p>
         <p>{`Author: ${article.author}`}</p>
+        <p>{`Votes: ${article.votes}`}</p>
       </div>
     </Link>
   );
