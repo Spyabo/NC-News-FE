@@ -11,39 +11,45 @@ export default function PostComment() {
   const [isOffline, setIsOffline] = useState(false);
   const { article_ID } = useParams();
   const queryClient = useQueryClient();
+  let errMessage = "You are offline";
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!navigator.onLine) {
       setIsOffline(true);
       return;
     }
     if (!comment) return;
-    const newComment: Partial<Comment> = {
-      article_id: article_ID as string,
-      username: "weegembump",
-      body: comment,
-      created_at: new Date().toISOString(),
-    };
-    postComment(newComment);
-    queryClient.setQueryData<Comment[] | undefined>(
-      ["Article_Comments"],
-      (data) => {
-        if (data) {
-          const newComment: Comment = {
-            article_id: article_ID as string,
-            author: "weegembump",
-            body: comment,
-            created_at: new Date().toISOString(),
-            comment_id: data.length + 1,
-            votes: 0,
-          };
-          return [newComment, ...data];
+    try {
+      const newComment: Partial<Comment> = {
+        article_id: article_ID as string,
+        username: "weegembump",
+        body: comment,
+        created_at: new Date().toISOString(),
+      };
+      await postComment(newComment);
+      queryClient.setQueryData<Comment[] | undefined>(
+        ["Article_Comments"],
+        (data) => {
+          if (data) {
+            const newComment: Comment = {
+              article_id: article_ID as string,
+              author: "weegembump",
+              body: comment,
+              created_at: new Date().toISOString(),
+              comment_id: data.length + 1,
+              votes: 0,
+            };
+            return [newComment, ...data];
+          }
         }
-      }
-    );
-    setComment("");
-    setIsSubmitted(true);
+      );
+      setComment("");
+      setIsSubmitted(true);
+    } catch (error) {
+      setIsOffline(true);
+      errMessage = "Server is offline";
+    }
   };
 
   useEffect(() => {
@@ -109,7 +115,7 @@ export default function PostComment() {
             textAlign: "center",
           }}
         >
-          Error: You are offline
+          Error: {errMessage}
         </div>
       )}
     </Box>
