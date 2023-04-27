@@ -11,7 +11,11 @@ import Header from "../components/FullArticle/Header";
 export default function FullArticle() {
   const { article_ID } = useParams();
   const location = useLocation();
+  console.log(location.state);
   const [votes, setVotes] = useState(location.state);
+  console.log("votes:", votes);
+  const initialVotes = votes;
+  const [isOffline, setIsOffline] = useState(false);
 
   const {
     isLoading,
@@ -74,6 +78,20 @@ export default function FullArticle() {
           <Button onClick={() => handleUpvote()}>{" + "}</Button>
           <Button onClick={() => handleDownvote()}>{" - "}</Button>
         </ButtonGroup>
+        {isOffline && (
+          <div
+            style={{
+              backgroundColor: "#f44336",
+              color: "white",
+              padding: "2px 4px",
+              borderRadius: "4px",
+              textAlign: "center",
+              height: "30px",
+            }}
+          >
+            Error: Votes could not be updated
+          </div>
+        )}
       </div>
       <Comments />
     </div>
